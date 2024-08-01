@@ -1,0 +1,22 @@
+@use '../mixins' as component;
+
+.wrapper {
+  @include component.wrapper;
+  h3 {
+    @include component.title(1.2rem);
+    //margin: 0;
+    //margin-bottom: 1rem
+  }
+}
+
+.typesOfEstate {
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    //margin-top: 1rem;
+  }
+  &__label {
+    margin-left: 0.5rem;
+    margin-right: 2rem;
+  }
+}

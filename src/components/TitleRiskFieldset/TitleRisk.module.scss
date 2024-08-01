@@ -1,0 +1,20 @@
+@use '../mixins' as component;
+
+.wrapper{
+  @include component.wrapper;
+  h3 {
+    @include component.title(1.2rem);
+  }
+}
+
+.titleRiskFlexbox {
+  display: flex;
+  gap: 1rem;
+
+  h4 {
+    font-weight: 400;
+  }
+  &__input {
+    align-self: center;
+  }
+}

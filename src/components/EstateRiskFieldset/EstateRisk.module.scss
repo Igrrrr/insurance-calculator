@@ -1,0 +1,42 @@
+@use '../mixins' as component;
+
+.wrapper{
+  @include component.wrapper;
+  h3 {
+    @include component.title(1.2rem);
+  }
+}
+
+.estateRiskGrid {
+  display: grid;
+  grid-template-columns: 16rem 8rem 1fr;
+  grid-template-areas: 
+  'titleBuildingYear inputBuildingYear alertBuildingYear'
+  'titleFlammable inputFlammable .';
+
+  &__titleBuildingYear {
+    grid-area: titleBuildingYear;
+    font-weight: 400;
+  }
+
+  &__inputBuildingYear {
+    grid-area: inputBuildingYear;
+    align-self:center;
+  }
+
+  &__alertBuildingYear {
+    grid-area: alertBuildingYear;
+    align-self:center;
+  }
+
+  &__titleFlammable {
+    grid-area: titleFlammable;
+    font-weight: 400;
+  }
+
+  &__inputFlammable {
+    grid-area: inputFlammable;
+    align-self:center;
+  }
+  gap: 0.5rem;
+}
