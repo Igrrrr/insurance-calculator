@@ -44,8 +44,6 @@ export function LifeRiskFieldset() {
     if ((age && age < 18) || age > 74) {
       setAgeLimitAlert(true);
     } else if (!age) {
-    }
-    {
       setAgeLimitAlert(false);
     }
   }, [dateOfBirth]);
@@ -118,7 +116,6 @@ export function LifeRiskFieldset() {
           missingParamsList={notifications}
           text={notifications.age}
         />
-
         <h4 className={styles.lifeRiskGrid__titleOccupation}>Профессия</h4>
         <Dropdown
           className={styles.lifeRiskGrid__inputOccupation}
@@ -128,9 +125,7 @@ export function LifeRiskFieldset() {
           options={occupationsList}
           optionLabel="name"
           placeholder="--Выберите род занятий--"
-          //className="w-full md:w-14rem"
           checkmark={true}
-          //highlightOnSelect={true}
         />
         <SetAlertMessage
           className={styles.lifeRiskGrid__alertOccupation}
@@ -139,10 +134,6 @@ export function LifeRiskFieldset() {
           missingParamsList={notifications}
           text={notifications.occupation}
         />
-        {/* <InputCheckbox
-        childrenField="Наличие хронических заболеваний"
-        setCheckboxValue={changeBooleanToNumber}
-      /> */}
         <h4 className={styles.lifeRiskGrid__titleIllness}>
           Хроническое<br></br>заболевание
         </h4>
@@ -152,9 +143,6 @@ export function LifeRiskFieldset() {
             onChange={(e) => setChecked(e.checked)}
             checked={checked}
           ></Checkbox>
-          {/* <label className={styles.illness__label}>
-            Наличие хронических заболеваний
-          </label> */}
         </div>
       </div>
     </fieldset>

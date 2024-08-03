@@ -7,7 +7,6 @@ import styles from "./TypesOfEstate.module.css";
 export function TypeOfEstateFieldset() {
   const { calcParams, setCalcParams } = useCalcParams();
   const [selectedEstate, setSelectedEstate] = useState();
-  const [urlImg, setUrlImg] = useState("rgb(255,255,255)");
 
   useEffect(() => {
     setCalcParams({
@@ -15,24 +14,8 @@ export function TypeOfEstateFieldset() {
       typeOfEstate: selectedEstate,
       checkedInsuranceTypes: [],
     });
-
-    switch (selectedEstate) {
-      case "buildingApartment":
-        setUrlImg("./components/img/building04.jpg");
-        break;
-      case "apartment":
-        setUrlImg("./components/img/apartment02.jpg");
-        break;
-      case "house":
-        setUrlImg("./components/img/house04.jpg");
-        break;
-      case "landLot":
-        setUrlImg("./components/img/landLot01.jpg");
-        break;
-    }
   }, [selectedEstate]);
 
-  console.log(urlImg);
   return (
     <fieldset className={styles.wrapper}>
       <h3>Объект ипотеки</h3>

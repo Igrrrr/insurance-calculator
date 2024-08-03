@@ -1,0 +1,52 @@
+body {
+  margin: 0;
+}
+
+$clear: url('../img/abstract02.jpg');
+$buildingApartment: url('../img/building06.jpg');
+$apartment: url('../img/apartment02.jpg');
+$house: url('../img/house05.jpg');
+$landLot: url('../img/landLot05.jpg');
+
+.background {
+  &_null {
+  background-image: $clear;
+}
+
+  &_buildingApartment {
+    background-image: $buildingApartment;
+  }
+
+  &_apartment {
+    background-image: $apartment;
+  }
+
+  &_house {
+    background-image: $house;
+  }
+
+  &_landLot {
+    background-image: $landLot;
+  }
+}
+
+.container {
+  margin: 0;
+  transition: background 0.4s ease;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+    margin:  1rem 22%;
+  }
+}
+

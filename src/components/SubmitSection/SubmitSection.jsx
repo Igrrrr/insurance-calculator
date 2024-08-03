@@ -166,11 +166,14 @@ export function SubmitSection() {
     setClick(!click);
     checkAvailibilityParams();
   };
+  console.log(insuranceCoefficients);
 
   const mainCoefficient = insuranceCoefficients?.reduce((acc, coefficient) => {
     acc += coefficient;
     return acc;
   }, 0);
+  console.log(mainCoefficient);
+
   const result = (amount * (mainCoefficient / 100)).toFixed(2);
   return (
     <section className={styles.wrapper}>

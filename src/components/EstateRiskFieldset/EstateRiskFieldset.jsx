@@ -60,7 +60,6 @@ export function EstateRiskFieldset() {
           text={notifications.buildingYear}
         />
         <h4 className={styles.estateRiskGrid__titleFlammable}>
-          {" "}
           Деревянные стены и (или) перекрытия
         </h4>
         <Checkbox

@@ -1,5 +1,6 @@
 import "./App.css";
 import { useState } from "react";
+import { Wrapper } from "./components/Wrapper/Wrapper.jsx";
 import { TypeOfEstateFieldset } from "./components/TypesOfEstate/TypesOfEstateFieldset.jsx";
 import { LoanParamsFieldset } from "./components/LoanParams/LoanParamsFieldset.jsx";
 import { InsuranceTypesFieldset } from "./components/InsuranceTypes/InsuranceTypesFieldset.jsx";
@@ -15,7 +16,7 @@ function App() {
   return (
     <DataProvider>
       <CalcParamsProvider active={active}>
-        <div className="container">
+        <Wrapper>
           <form onSubmit={(e) => e.preventDefault()} action="">
             <TypeOfEstateFieldset />
             <LoanParamsFieldset />
@@ -25,7 +26,7 @@ function App() {
             <TitleRiskFieldset />
             <SubmitSection />
           </form>
-        </div>
+        </Wrapper>
       </CalcParamsProvider>
     </DataProvider>
   );
