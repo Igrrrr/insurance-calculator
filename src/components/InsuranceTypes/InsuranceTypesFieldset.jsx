@@ -3,7 +3,7 @@ import { useCalcParams } from "../../hooks/useCalcParams.jsx";
 import { useData } from "../../hooks/useData.jsx";
 import { Checkbox } from "primereact/checkbox";
 import { inputsInsuranceTypes, inputsTypesOfEstate } from "../inputs.js";
-import styles from "./InsuranceTypes.module.css";
+import styles from "./InsuranceTypes.module.scss";
 
 export function InsuranceTypesFieldset() {
   const { calcParams, setCalcParams } = useCalcParams([]);

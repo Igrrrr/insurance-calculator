@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { inputsTypesOfEstate } from "../inputs.js";
 import { useCalcParams } from "../../hooks/useCalcParams.jsx";
 import { RadioButton } from "primereact/radiobutton";
-import styles from "./TypesOfEstate.module.css";
+import styles from "./TypesOfEstate.module.scss";
 
 export function TypeOfEstateFieldset() {
   const { calcParams, setCalcParams } = useCalcParams();

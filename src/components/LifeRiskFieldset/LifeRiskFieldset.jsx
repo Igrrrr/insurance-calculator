@@ -8,7 +8,7 @@ import { Calendar } from "primereact/calendar";
 import { Message } from "primereact/message";
 import { Dropdown } from "primereact/dropdown";
 import { Checkbox } from "primereact/checkbox";
-import styles from "./LifeRisk.module.css";
+import styles from "./LifeRisk.module.scss";
 
 export function LifeRiskFieldset() {
   const [disabled, setDisabled] = useState(true);

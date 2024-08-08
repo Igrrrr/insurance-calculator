@@ -4,7 +4,7 @@ import { useCalcParams } from "../../hooks/useCalcParams.jsx";
 import { Dropdown } from "primereact/dropdown";
 import { InputNumber } from "primereact/inputnumber";
 import { Message } from "primereact/message";
-import styles from "./LoanParams.module.css";
+import styles from "./LoanParams.module.scss";
 
 export function LoanParamsFieldset() {
   const [optionValue, setOptionValue] = useState(null);

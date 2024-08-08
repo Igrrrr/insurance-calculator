@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { getData } from "../components/utils.js";
 const dataContext = createContext();
 
 export const useData = () => useContext(dataContext);
@@ -6,28 +7,30 @@ export const useData = () => useContext(dataContext);
 export const DataProvider = ({ children }) => {
   const [banks, setBanks] = useState([]);
   const [coefficientsList, setCoefficientsList] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState("");
-  const getData = async (url, state) => {
+  const [isError, setIsError] = useState();
+  const getBanks = async () => {
     try {
-      const resp = await fetch(url);
-      const json = await resp.json();
-      state(json);
-      setIsLoading(false);
-    } catch (err) {
-      console.error("Error >>>", err);
+      const data = await getData("/bankList.json");
+      return setBanks(data);
+    } catch (error) {
       setIsError(true);
     }
   };
-
+  const getCoefficients = async () => {
+    try {
+      const data = await getData("/coefficientsList.json");
+      return setCoefficientsList(data);
+    } catch (error) {
+      setIsError(true);
+    }
+  };
   useEffect(() => {
-    getData("/bankList.json", setBanks);
-    getData("/coefficientsList.json", setCoefficientsList);
+    getBanks();
+    getCoefficients();
   }, []);
+
   return (
-    <dataContext.Provider
-      value={{ banks, coefficientsList, isLoading, isError }}
-    >
+    <dataContext.Provider value={{ banks, coefficientsList, isError }}>
       {children}
     </dataContext.Provider>
   );

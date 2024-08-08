@@ -3,7 +3,7 @@ import { useCalcParams } from "../../hooks/useCalcParams.jsx";
 import { SetAlertMessage } from "../SetAlertMessage.jsx";
 import { Calendar } from "primereact/calendar";
 import { Checkbox } from "primereact/checkbox";
-import styles from "./EstateRisk.module.css";
+import styles from "./EstateRisk.module.scss";
 
 export function EstateRiskFieldset() {
   const [disabled, setDisabled] = useState(true);

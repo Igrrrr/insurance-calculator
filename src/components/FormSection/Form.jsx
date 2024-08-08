@@ -10,7 +10,7 @@ import { LifeRiskFieldset } from "../LifeRiskFieldset/LifeRiskFieldset.jsx";
 import { EstateRiskFieldset } from "../EstateRiskFieldset/EstateRiskFieldset.jsx";
 import { TitleRiskFieldset } from "../TitleRiskFieldset/TitleRiskFieldset.jsx";
 import { SubmitSection } from "../SubmitSection/SubmitSection.jsx";
-import "./Form.css";
+import "./Form.scss";
 
 export function Form() {
   const { calcParams } = useCalcParams();

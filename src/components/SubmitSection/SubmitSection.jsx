@@ -2,7 +2,7 @@ import { useCalcParams } from "../../hooks/useCalcParams.jsx";
 import { useEffect, useMemo, useState } from "react";
 import { Button } from "primereact/button";
 import { InputNumber } from "primereact/inputnumber";
-import styles from "./SubmitSection.module.css";
+import styles from "./SubmitSection.module.scss";
 
 export function SubmitSection() {
   const [disabled, setDisabled] = useState(true);

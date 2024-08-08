@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useCalcParams } from "../../hooks/useCalcParams";
 import { Checkbox } from "primereact/checkbox";
-import styles from "./TitleRisk.module.css";
+import styles from "./TitleRisk.module.scss";
 
 export function TitleRiskFieldset() {
   const [disabled, setDisabled] = useState(true);
