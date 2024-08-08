@@ -9,9 +9,7 @@ export function TitleRiskFieldset() {
   const [checked, setChecked] = useState(false);
 
   useEffect(() => {
-    calcParams.checkedInsuranceTypes.includes("titleRisk")
-      ? setDisabled(false)
-      : setDisabled(true);
+    setDisabled(!calcParams.checkedInsuranceTypes.includes("titleRisk"));
   }, [calcParams.checkedInsuranceTypes]);
 
   useEffect(() => {

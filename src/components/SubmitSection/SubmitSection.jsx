@@ -1,32 +1,24 @@
 import { useCalcParams } from "../../hooks/useCalcParams.jsx";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Button } from "primereact/button";
 import { InputNumber } from "primereact/inputnumber";
 import styles from "./SubmitSection.module.css";
 
 export function SubmitSection() {
   const [disabled, setDisabled] = useState(true);
-  const { calcParams, setCalcParams, notifications, setNotifications } =
-    useCalcParams();
+  const {
+    calcParams,
+    setCalcParams,
+    selectedBankCoefficients,
+    notifications,
+    setNotifications,
+  } = useCalcParams();
   const [lifeCoefficients, setLifeCoefficients] = useState([]);
   const [estateCoefficients, setEstateCoefficients] = useState([]);
   const [titleCoefficients, setTitleCoefficients] = useState([]);
-  const [coefficientsList, setCoefficientsList] = useState([]);
   const [click, setClick] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const getData = async () => {
-    const resp = await fetch("/coefficientsList.json");
-    const json = await resp.json();
-    setCoefficientsList(json);
-    setIsLoading(false);
-  };
-  useEffect(() => {
-    getData();
-  }, []);
 
   const {
-    selectedBankId,
     amount,
     gender,
     age,
@@ -39,11 +31,89 @@ export function SubmitSection() {
     insuranceCoefficients,
   } = calcParams;
 
+  useEffect(() => {
+    setDisabled(!checkedInsuranceTypes.length);
+  }, [checkedInsuranceTypes]);
+
+  useEffect(() => {
+    setCalcParams({
+      ...calcParams,
+      insuranceCoefficients: [],
+    });
+  }, [click]);
+
+  useEffect(() => {
+    if (
+      [
+        checkedInsuranceTypes?.includes("lifeRisk"),
+        gender,
+        age,
+        occupation,
+      ].every(Boolean)
+    ) {
+      lifeCoefficients.length > 0 && setLifeCoefficients([]);
+      setLifeCoefficients((prev) =>
+        prev.concat(selectedBankCoefficients[gender]?.[age])
+      );
+      if (occupation === "genderIncreased")
+        setLifeCoefficients((prev) =>
+          prev.concat(selectedBankCoefficients.genderIncreased)
+        );
+      if (illness)
+        setLifeCoefficients((prev) =>
+          prev.concat(selectedBankCoefficients.genderIncreased)
+        );
+    } else {
+      setLifeCoefficients([]);
+    }
+  }, [gender, age, occupation, illness]);
+
+  useEffect(() => {
+    if (
+      [
+        buildingYear,
+        selectedBankCoefficients,
+        checkedInsuranceTypes?.includes("estateRisk"),
+      ].every(Boolean)
+    ) {
+      estateCoefficients.length > 0 && setEstateCoefficients([]);
+
+      const yearPeriod = Object.keys(selectedBankCoefficients?.estateBasic)
+        .sort((a, b) => b - a)
+        .find((el) => el <= buildingYear);
+      setEstateCoefficients((prev) =>
+        prev.concat(selectedBankCoefficients?.estateBasic[yearPeriod])
+      );
+    } else {
+      setEstateCoefficients([]);
+    }
+
+    flammable &&
+      setEstateCoefficients((prev) =>
+        prev.concat(selectedBankCoefficients?.estateIncreased)
+      );
+  }, [buildingYear, flammable]);
+
+  useEffect(() => {
+    if (checkedInsuranceTypes?.includes("titleRisk")) {
+      titleCoefficients.length > 0 && setTitleCoefficients([]);
+      setTitleCoefficients((prev) =>
+        prev.concat(selectedBankCoefficients?.titleBasic)
+      );
+      durationOfOwnership &&
+        setTitleCoefficients((prev) =>
+          prev.concat(selectedBankCoefficients?.titleIncreased)
+        );
+    }
+  }, [checkedInsuranceTypes, durationOfOwnership]);
+
   const checkRequiredParams = (param) => {
-    if (calcParams[param] || notifications.missingParamsLog.includes(param)) {
+    if (calcParams[param]) {
       setNotifications((prev) => ({
         ...prev,
-        missingParamsLog: prev.missingParamsLog.filter((note) => note != param),
+        missingParamsLog: prev.missingParamsLog.filter(
+          (note) => note !== param
+        ),
       }));
     } else {
       !notifications.missingParamsLog.includes(param) &&
@@ -68,68 +138,9 @@ export function SubmitSection() {
     return;
   };
 
-  useEffect(() => {
-    checkedInsuranceTypes.length != 0 ? setDisabled(false) : setDisabled(true);
-  }, [checkedInsuranceTypes]);
-
-  const selectedBankCoefficients = coefficientsList.find(
-    (item) => item?.bankID === selectedBankId
-  );
-  useEffect(() => {
-    if (calcParams.checkedInsuranceTypes?.includes("lifeRisk")) {
-      lifeCoefficients.length > 0 && setLifeCoefficients([]);
-
-      if (gender && age)
-        setLifeCoefficients((prev) =>
-          prev.concat(selectedBankCoefficients[gender]?.[age])
-        );
-      if (occupation === "genderIncreased")
-        setLifeCoefficients((prev) =>
-          prev.concat(selectedBankCoefficients.genderIncreased)
-        );
-      if (illness)
-        setLifeCoefficients((prev) =>
-          prev.concat(selectedBankCoefficients.genderIncreased)
-        );
-    }
-  }, [gender, age, occupation, illness]);
-
-  useEffect(() => {
-    if (calcParams.checkedInsuranceTypes?.includes("estateRisk")) {
-      estateCoefficients.length > 0 && setEstateCoefficients([]);
-      if (buildingYear <= 1960) {
-        setEstateCoefficients((prev) =>
-          prev.concat(selectedBankCoefficients?.estateBasic[1960])
-        );
-      } else if (buildingYear >= 1961 && buildingYear <= 2000) {
-        setEstateCoefficients((prev) =>
-          prev.concat(selectedBankCoefficients?.estateBasic[1961])
-        );
-      } else {
-        setEstateCoefficients((prev) =>
-          prev.concat(selectedBankCoefficients?.estateBasic[2000])
-        );
-      }
-    }
-
-    flammable &&
-      setEstateCoefficients((prev) =>
-        prev.concat(selectedBankCoefficients?.estateIncreased)
-      );
-  }, [buildingYear, flammable]);
-
-  useEffect(() => {
-    if (calcParams.checkedInsuranceTypes?.includes("titleRisk")) {
-      titleCoefficients.length > 0 && setTitleCoefficients([]);
-      setTitleCoefficients((prev) =>
-        prev.concat(selectedBankCoefficients?.titleBasic)
-      );
-      durationOfOwnership &&
-        setTitleCoefficients((prev) =>
-          prev.concat(selectedBankCoefficients?.titleIncreased)
-        );
-    }
-  }, [checkedInsuranceTypes, durationOfOwnership]);
+  const isReady = (risk, ...params) => {
+    return checkedInsuranceTypes.includes(risk) && params.every(Boolean);
+  };
 
   const setActualCoefficientsList = (coefficientsArray) => {
     setCalcParams((prev) => ({
@@ -140,17 +151,6 @@ export function SubmitSection() {
       ],
     }));
   };
-
-  const isReady = (risk, ...params) => {
-    return checkedInsuranceTypes.includes(risk) && params.every(Boolean);
-  };
-
-  useEffect(() => {
-    setCalcParams({
-      ...calcParams,
-      insuranceCoefficients: [],
-    });
-  }, [click]);
 
   useEffect(() => {
     if (insuranceCoefficients.length) return;
@@ -166,15 +166,25 @@ export function SubmitSection() {
     setClick(!click);
     checkAvailibilityParams();
   };
-  console.log(insuranceCoefficients);
 
   const mainCoefficient = insuranceCoefficients?.reduce((acc, coefficient) => {
     acc += coefficient;
     return acc;
   }, 0);
-  console.log(mainCoefficient);
 
-  const result = (amount * (mainCoefficient / 100)).toFixed(2);
+  const result = useMemo(() => {
+    if (
+      (checkedInsuranceTypes.includes("lifeRisk") &&
+        !lifeCoefficients.length) ||
+      (checkedInsuranceTypes.includes("estateRisk") &&
+        !estateCoefficients.length)
+    ) {
+      return;
+    } else {
+      return (amount * (mainCoefficient / 100)).toFixed(2);
+    }
+  }, [mainCoefficient]);
+
   return (
     <section className={styles.wrapper}>
       <Button disabled={disabled} label="Рассчитать" onClick={countSum} />

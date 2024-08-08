@@ -5,7 +5,7 @@
     "titleBasic": 0.3,
     "titleIncreased": 0.7,
     "estateBasic": {
-      "1960": 0.5,
+      "1800": 0.5,
       "1961": 0.3,
       "2000": 0.1
     },
@@ -138,7 +138,7 @@
     "titleBasic": 0.31,
     "titleIncreased": 0.69,
     "estateBasic": {
-      "1960": 1,
+      "1800": 1,
       "1961": 0.6,
       "2000": 0.2
     },
@@ -150,7 +150,7 @@
     "titleBasic": 0.35,
     "titleIncreased": 0.65,
     "estateBasic": {
-      "1960": 0.52,
+      "1800": 0.52,
       "1961": 0.32,
       "2000": 0.12
     },
@@ -281,7 +281,7 @@
     "bankName": "Nordea Bank Abp",
     "bankID": "f85f256c-034a-46b4-885c-6b75d3Nordea",
     "estateBasic": {
-      "1960": 0.4,
+      "1800": 0.4,
       "1961": 0.6,
       "2000": 0.2
     },

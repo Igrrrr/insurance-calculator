@@ -12,9 +12,7 @@ export function EstateRiskFieldset() {
   const [checked, setChecked] = useState(false);
 
   useEffect(() => {
-    calcParams.checkedInsuranceTypes.includes("estateRisk")
-      ? setDisabled(false)
-      : setDisabled(true);
+    setDisabled(!calcParams.checkedInsuranceTypes.includes("estateRisk"));
   }, [calcParams.checkedInsuranceTypes]);
 
   useEffect(() => {
@@ -37,13 +35,14 @@ export function EstateRiskFieldset() {
   const maxDate = new Date();
 
   return (
-    <fieldset disabled={disabled} className={styles.wrapper}>
+    <fieldset className={styles.wrapper}>
       <h3>Страхование имущества</h3>
       <div className={styles.estateRiskGrid}>
         <h4 className={styles.estateRiskGrid__titleBuildingYear}>
           Год постройки
         </h4>
         <Calendar
+          disabled={disabled}
           className={styles.estateRiskGrid__inputBuildingYear}
           onChange={(e) => setNumberValue(e.value)}
           value={numberValue}

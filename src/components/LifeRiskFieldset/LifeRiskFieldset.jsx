@@ -1,7 +1,8 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { SetAlertMessage } from "../SetAlertMessage.jsx";
 import { inputsLifeRiskGender, occupationsList } from "../inputs.js";
 import { useCalcParams } from "../../hooks/useCalcParams.jsx";
+import { useData } from "../../hooks/useData.jsx";
 import { RadioButton } from "primereact/radiobutton";
 import { Calendar } from "primereact/calendar";
 import { Message } from "primereact/message";
@@ -16,15 +17,13 @@ export function LifeRiskFieldset() {
   const [checked, setChecked] = useState(false);
   const [dateOfBirth, setDateOfBirth] = useState(null);
   const [ageLimitAlert, setAgeLimitAlert] = useState(false);
-  const [optionValue, setOptionValue] = useState(null);
   const [age, setAge] = useState();
   const { calcParams, setCalcParams, notifications, setNotifications } =
     useCalcParams();
+  const { coefficientsList } = useData();
 
   useEffect(() => {
-    calcParams.checkedInsuranceTypes.includes("lifeRisk")
-      ? setDisabled(false)
-      : setDisabled(true);
+    setDisabled(!calcParams.checkedInsuranceTypes.includes("lifeRisk"));
   }, [calcParams.checkedInsuranceTypes]);
 
   useEffect(() => {
@@ -38,14 +37,15 @@ export function LifeRiskFieldset() {
     } else {
       setAge(now.getFullYear() - dateOfBirth?.getFullYear() - 1);
     }
-  }, [dateOfBirth]);
 
-  useEffect(() => {
-    if ((age && age < 18) || age > 74) {
-      setAgeLimitAlert(true);
-    } else if (!age) {
-      setAgeLimitAlert(false);
-    }
+    const selectedParamsList = coefficientsList.find(
+      (el) => el.bankID == calcParams.selectedBankId
+    );
+
+    [selectedGender, age].every(Boolean) &&
+      setAgeLimitAlert(
+        !Object.hasOwn(selectedParamsList[selectedGender.value], age)
+      );
   }, [dateOfBirth]);
 
   useEffect(() => {
@@ -56,7 +56,8 @@ export function LifeRiskFieldset() {
       occupation: selectedOccupation?.riskLevel,
       illness: checked,
     });
-  }, [selectedGender, selectedOccupation, age, optionValue, checked]);
+  }, [selectedGender, selectedOccupation, age, checked]);
+
   return (
     <fieldset className={styles.wrapper}>
       <h3>Страхование жизни</h3>
@@ -135,7 +136,9 @@ export function LifeRiskFieldset() {
           text={notifications.occupation}
         />
         <h4 className={styles.lifeRiskGrid__titleIllness}>
-          Хроническое<br></br>заболевание
+          Хроническое
+          <br />
+          заболевание
         </h4>
         <div className={styles.lifeRiskGrid__inputIllness}>
           <Checkbox
