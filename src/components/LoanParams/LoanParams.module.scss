@@ -1,0 +1,29 @@
+@use '../mixins' as component;
+
+.wrapper {
+  @include component.wrapper;
+  h3 {
+    @include component.title(1.2rem);
+  }
+}
+
+.loanParams {
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    align-self: center;
+    max-height: 39px;
+  }
+
+  &__alertAmount {
+    // grid-area: alertAge;
+    align-self:center;
+  }
+  &__input {
+    min-width: 30%;
+    justify-content: center;
+  }
+}
+  
+

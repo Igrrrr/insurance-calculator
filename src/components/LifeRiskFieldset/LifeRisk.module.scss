@@ -1,0 +1,75 @@
+@use '../mixins' as component;
+
+  .wrapper{
+  @include component.wrapper;
+  h3 {
+    @include component.title(1.2rem);
+  }
+}
+  .lifeRiskGrid {
+    display: grid;
+    grid-template-columns: 8rem 16rem 1fr;
+    grid-template-areas: 
+    'titleGender inputGender alertGender'
+    'titleAge inputAge alertAge'
+    'titleOccupation inputOccupation alertOccupation'
+    'titleIllness inputIllness .';
+
+    &__titleGender {
+      grid-area: titleGender;
+      font-weight:400;
+    }
+    &__inputGender {
+      grid-area: inputGender;
+      align-self:center;
+    }
+    &__alertGender {
+      grid-area: alertGender;
+      align-self:center;
+    }
+    &__titleAge {
+      grid-area: titleAge;
+      font-weight:400;
+    }
+    &__inputAge {
+      grid-area: inputAge;
+      align-self:center;
+    }
+    &__alertAge {
+      grid-area: alertAge;
+      align-self:center;
+    }
+    &__titleOccupation {
+      grid-area: titleOccupation;
+      font-weight:400;
+    }
+    &__inputOccupation {
+      grid-area: inputOccupation;
+      align-self:center;
+    }
+    &__alertOccupation {
+      grid-area: alertOccupation;
+      align-self:center;
+    }
+    &__titleIllness {
+      grid-area: titleIllness;
+      font-weight:400;
+    }
+    &__inputIllness {
+      grid-area: inputIllness;
+      align-self:center;
+    }
+    gap: 0.5rem;
+  }
+  .gender, .illness {
+    &__wrapper {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+    &__label {
+      margin-left: 10px;
+      margin-right: 30px;
+    }
+  }
+

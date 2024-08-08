@@ -1,0 +1,35 @@
+[
+  {
+    "id": "9098c7d8-4cdc-4b69-8237-58d0255ccDNB",
+    "name": "DNB Bank",
+    "risks": {
+      "lifeRisk": ["buildingApartment", "apartment", "house", "landLot"],
+      "estateRisk": ["apartment", "house"],
+      "titleRisk": ["apartment", "house", "landLot"]
+    }
+  },
+  {
+    "id": "ac9a52d8-591c-4137-98b3-961f4eDanske",
+    "name": "Danske Bank",
+    "risks": {
+      "estateRisk": ["apartment"],
+      "titleRisk": ["apartment"]
+    }
+  },
+  {
+    "id": "47dccc5a-1f20-4bb0-a3c1-72aNorwegian",
+    "name": "Bank Norwegian",
+    "risks": {
+      "lifeRisk": ["buildingApartment", "apartment", "house"],
+      "estateRisk": ["apartment", "house"],
+      "titleRisk": ["apartment", "house"]
+    }
+  },
+  {
+    "id": "f85f256c-034a-46b4-885c-6b75d3Nordea",
+    "name": "Nordea Bank Abp",
+    "risks": {
+      "estateRisk": ["apartment", "house"]
+    }
+  }
+]

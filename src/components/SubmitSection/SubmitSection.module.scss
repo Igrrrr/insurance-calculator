@@ -1,0 +1,13 @@
+@use '../mixins' as component;
+
+.wrapper {
+  @include component.wrapper;
+  display: flex;
+  gap: 1rem
+}
+
+
+.submitSectionFlexbox {
+  display: flex;
+  gap: 1rem
+}
